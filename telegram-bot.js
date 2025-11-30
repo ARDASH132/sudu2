@@ -11,7 +11,7 @@ const bot = new TelegramBot(token, {
     }
 });
 
-const SERVER_URL = process.env.RAILWAY_STATIC_URL || 'https://web-production-f0ff.up.railway.app/';  // Новая строка
+const SERVER_URL = process.env.RAILWAY_STATIC_URL || 'https://web-production-f0ff.up.railway.app/';  // Новое значение
 
 
 console.log('🚀 Запуск Telegram бота...');
