@@ -11,8 +11,7 @@ const bot = new TelegramBot(token, {
     }
 });
 
-const SERVER_URL = process.env.RAILWAY_STATIC_URL || 'https://web-production-f0ff.up.railway.app/';  // Новое значение
-
+const SERVER_URL = 'http://localhost:5000';
 
 console.log('🚀 Запуск Telegram бота...');
 console.log('🔗 Подключение к серверу:', SERVER_URL);
