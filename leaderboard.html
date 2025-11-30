@@ -133,6 +133,30 @@
             box-shadow: 0 6px 20px rgba(106, 90, 205, 0.4);
         }
 
+        .logout-button {
+            position: fixed;
+            top: 2rem;
+            left: 8rem;
+            background: rgba(255, 107, 107, 0.9);
+            color: white;
+            border: 2px solid #FF6B6B;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .logout-button:hover {
+            background: rgba(255, 107, 107, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
         /* Профиль справа сверху */
         .user-profile-top {
             position: fixed;
@@ -275,6 +299,12 @@
             transform: scale(1.01);
         }
 
+        tbody tr.current-user {
+            background: rgba(106, 90, 205, 0.1);
+            border-left: 4px solid #6A5ACD;
+            font-weight: bold;
+        }
+
         tbody tr td:first-child {
             font-weight: bold;
             font-size: 1.2rem;
@@ -296,17 +326,17 @@
         }
 
         /* Цвета для призовых мест */
-        #winner {
+        .winner {
             color: #ffd700;
             text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
-        #runner-up {
+        .runner-up {
             color: #c0c0c0;
             text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
         }
 
-        #second-runner-up {
+        .second-runner-up {
             color: #cd7f32;
             text-shadow: 0 0 10px rgba(205, 127, 50, 0.3);
         }
@@ -379,6 +409,13 @@
                 font-size: 0.9rem;
             }
 
+            .logout-button {
+                top: 1rem;
+                left: 6rem;
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
             .main-content {
                 padding: 1rem;
             }
@@ -417,6 +454,13 @@
                 text-align: center;
             }
 
+            .back-button, .logout-button {
+                position: relative;
+                top: auto;
+                left: auto;
+                margin: 5px;
+            }
+
             .main-content {
                 padding: 0.5rem;
             }
@@ -452,17 +496,15 @@
     <div class="floating-element floating-3"></div>
 
     <a href="main.html" class="back-button">← Назад</a>
+    
 
-
-    <div class="user-profile-top">
+    <div class="user-profile-top" id="userProfileTop">
         <div class="user-info-top">
-            <div class="user-name">Шеметов Глеб</div>
-            <div class="user-rank-top">#3 • 154 очка</div>
+            <div class="user-name" id="currentUserName">Загрузка...</div>
+            <div class="user-rank-top" id="currentUserRank">#0 • 0 очков</div>
         </div>
-        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Шеметов&backgroundColor=6A5ACD" alt="Аватар"
-            class="user-avatar-small">
+        <img src="" alt="Аватар" class="user-avatar-small" id="currentUserAvatar">
     </div>
-
 
     <div class="main-content">
         <div class="leaderboard">
@@ -487,228 +529,27 @@
                         <th>Соотношение %</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td id="winner">1</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Кужаев&backgroundColor=6A5ACD"
-                                    alt="Кужаев" class="player-avatar">
-                                <span>Кужаев Арсен</span>
-                            </div>
-                        </td>
-                        <td>156</td>
-                        <td>83</td>
-                        <td>239</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 65.3%"></div>
-                                <div class="soft-skills-fill" style="width: 34.7%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">65.3%</span>
-                                <span class="soft-percent">34.7%</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td id="runner-up">2</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Бадамшин&backgroundColor=6A5ACD"
-                                    alt="Бадамшин" class="player-avatar">
-                                <span>Бадамшин Антон</span>
-                            </div>
-                        </td>
-                        <td>134</td>
-                        <td>75</td>
-                        <td>209</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 64.1%"></div>
-                                <div class="soft-skills-fill" style="width: 35.9%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">64.1%</span>
-                                <span class="soft-percent">35.9%</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td id="second-runner-up">3</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Шеметов&backgroundColor=6A5ACD"
-                                    alt="Шеметов" class="player-avatar">
-                                <span>Шеметов Глеб</span>
-                            </div>
-                        </td>
-                        <td>98</td>
-                        <td>56</td>
-                        <td>154</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 63.6%"></div>
-                                <div class="soft-skills-fill" style="width: 36.4%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">63.6%</span>
-                                <span class="soft-percent">36.4%</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>4</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Shaposhnikov&backgroundColor=6A5ACD"
-                                    alt="Шапошников" class="player-avatar">
-                                <span>Шапошников Иван</span>
-                            </div>
-                        </td>
-                        <td>85</td>
-                        <td>48</td>
-                        <td>133</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 63.9%"></div>
-                                <div class="soft-skills-fill" style="width: 36.1%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">63.9%</span>
-                                <span class="soft-percent">36.1%</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>5</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Mirsayapov&backgroundColor=6A5ACD"
-                                    alt="Мирсаяпов" class="player-avatar">
-                                <span>Мирсаяпов Роман</span>
-                            </div>
-                        </td>
-                        <td>78</td>
-                        <td>42</td>
-                        <td>120</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 65%"></div>
-                                <div class="soft-skills-fill" style="width: 35%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">65%</span>
-                                <span class="soft-percent">35%</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>6</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Магасумов&backgroundColor=6A5ACD"
-                                    alt="Магасумов" class="player-avatar">
-                                <span>Магасумов Алмаз</span>
-                            </div>
-                        </td>
-                        <td>72</td>
-                        <td>40</td>
-                        <td>112</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 64.3%"></div>
-                                <div class="soft-skills-fill" style="width: 35.7%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">64.3%</span>
-                                <span class="soft-percent">35.7%</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>7</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Костригина&backgroundColor=6A5ACD"
-                                    alt="Костригина" class="player-avatar">
-                                <span>Костригина Марина</span>
-                            </div>
-                        </td>
-                        <td>65</td>
-                        <td>35</td>
-                        <td>100</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 65%"></div>
-                                <div class="soft-skills-fill" style="width: 35%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">65%</span>
-                                <span class="soft-percent">35%</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>8</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Леушина&backgroundColor=6A5ACD"
-                                    alt="Леушина" class="player-avatar">
-                                <span>Леушина Алена</span>
-                            </div>
-                        </td>
-                        <td>52</td>
-                        <td>30</td>
-                        <td>82</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 63.4%"></div>
-                                <div class="soft-skills-fill" style="width: 36.6%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">63.4%</span>
-                                <span class="soft-percent">36.6%</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>9</td>
-                        <td>
-                            <div class="player-info">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Дмитриев&backgroundColor=6A5ACD"
-                                    alt="Дмитриев" class="player-avatar">
-                                <span>Дмитриев Данил</span>
-                            </div>
-                        </td>
-                        <td>45</td>
-                        <td>25</td>
-                        <td>70</td>
-                        <td>
-                            <div class="ratio-bar">
-                                <div class="hard-skills-fill" style="width: 64.3%"></div>
-                                <div class="soft-skills-fill" style="width: 35.7%"></div>
-                            </div>
-                            <div class="ratio-text">
-                                <span class="hard-percent">64.3%</span>
-                                <span class="soft-percent">35.7%</span>
-                            </div>
-                        </td>
-                    </tr>
+                <tbody id="leaderboardBody">
+                    <!-- Данные будут заполнены через JavaScript -->
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
+        // Данные рейтинга
+        const leaderboardData = [
+            { name: "Кужаев Арсен", hardSkills: 156, softSkills: 83, total: 239, place: 1 },
+            { name: "Бадамшин Антон", hardSkills: 134, softSkills: 75, total: 209, place: 2 },
+            { name: "Шеметов Глеб", hardSkills: 98, softSkills: 56, total: 154, place: 3 },
+            { name: "Шапошников Иван", hardSkills: 85, softSkills: 48, total: 133, place: 4 },
+            { name: "Мирсаяпов Роман", hardSkills: 78, softSkills: 42, total: 120, place: 5 },
+            { name: "Магасумов Алмаз", hardSkills: 72, softSkills: 40, total: 112, place: 6 },
+            { name: "Костригина Марина", hardSkills: 65, softSkills: 35, total: 100, place: 7 },
+            { name: "Леушина Алена", hardSkills: 52, softSkills: 30, total: 82, place: 8 },
+            { name: "Дмитриев Данил", hardSkills: 45, softSkills: 25, total: 70, place: 9 }
+        ];
+
         function search() {
             var text = document.getElementById('search').value.toLowerCase();
             const tr = document.querySelectorAll('tbody tr');
@@ -723,9 +564,7 @@
             });
         }
 
-
         function generateAvatar(seed) {
-
             return `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(seed)}&backgroundColor=6A5ACD&radius=50`;
         }
 
@@ -733,47 +572,110 @@
             return `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(seed)}&backgroundColor=6A5ACD`;
         }
 
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+
+        function populateLeaderboard() {
+            const tbody = document.getElementById('leaderboardBody');
+            tbody.innerHTML = '';
+
+            leaderboardData.forEach(student => {
+                const row = document.createElement('tr');
+                
+                // Определяем класс для призовых мест
+                let placeClass = '';
+                if (student.place === 1) placeClass = 'winner';
+                else if (student.place === 2) placeClass = 'runner-up';
+                else if (student.place === 3) placeClass = 'second-runner-up';
+
+                const hardPercentage = ((student.hardSkills / student.total) * 100).toFixed(1);
+                const softPercentage = ((student.softSkills / student.total) * 100).toFixed(1);
+
+                // Определяем аватар
+                let avatarSrc;
+                if (student.name === 'Шапошников Иван' || student.name === 'Мирсаяпов Роман') {
+                    avatarSrc = generateBotAvatar(student.name.split(' ')[0]);
+                } else {
+                    avatarSrc = generateAvatar(student.name.split(' ')[0]);
+                }
+
+                row.innerHTML = `
+                    <td class="${placeClass}">${student.place}</td>
+                    <td>
+                        <div class="player-info">
+                            <img src="${avatarSrc}" alt="${student.name.split(' ')[0]}" class="player-avatar">
+                            <span>${student.name}</span>
+                        </div>
+                    </td>
+                    <td>${student.hardSkills}</td>
+                    <td>${student.softSkills}</td>
+                    <td>${student.total}</td>
+                    <td>
+                        <div class="ratio-bar">
+                            <div class="hard-skills-fill" style="width: ${hardPercentage}%"></div>
+                            <div class="soft-skills-fill" style="width: ${softPercentage}%"></div>
+                        </div>
+                        <div class="ratio-text">
+                            <span class="hard-percent">${hardPercentage}%</span>
+                            <span class="soft-percent">${softPercentage}%</span>
+                        </div>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateCurrentUser() {
+            const userData = JSON.parse(localStorage.getItem('currentUser'));
+            
+            if (!userData) {
+                // Если пользователь не авторизован, перенаправляем на вход
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Обновляем профиль в правом верхнем углу
+            const userNameElement = document.getElementById('currentUserName');
+            const userRankElement = document.getElementById('currentUserRank');
+            const userAvatar = document.getElementById('currentUserAvatar');
+
+            if (userNameElement) userNameElement.textContent = userData.name;
+            if (userAvatar) userAvatar.src = generateAvatar(userData.name.split(' ')[0]);
+
+            // Находим текущего пользователя в рейтинге
+            const currentUserInRanking = leaderboardData.find(student => 
+                student.name === userData.name
+            );
+
+            if (currentUserInRanking) {
+                if (userRankElement) {
+                    userRankElement.textContent = `#${currentUserInRanking.place} • ${currentUserInRanking.total} очков`;
+                }
+
+                // Выделяем текущего пользователя в таблице
+                setTimeout(() => {
+                    const rows = document.querySelectorAll('tbody tr');
+                    rows.forEach((row, index) => {
+                        if (index === currentUserInRanking.place - 1) {
+                            row.classList.add('current-user');
+                        }
+                    });
+                }, 100);
+            } else {
+                // Если пользователя нет в топе, показываем базовую информацию
+                if (userRankElement) {
+                    userRankElement.textContent = 'Не в топе';
+                }
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', function () {
-            const profileAvatar = document.querySelector('.user-avatar-small');
-            profileAvatar.src = generateAvatar('Шеметов');
-
-            const playerAvatars = document.querySelectorAll('.player-avatar');
-            playerAvatars.forEach(avatar => {
-                const seed = avatar.alt;
-
-                if (seed === 'Шапошников' || seed === 'Мирсаяпов') {
-                    avatar.src = generateBotAvatar(seed);
-                } else {
-                    avatar.src = generateAvatar(seed);
-                }
-            });
-
-            const rows = document.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-                const hardSkills = parseInt(row.cells[2].textContent);
-                const softSkills = parseInt(row.cells[3].textContent);
-                const total = hardSkills + softSkills;
-
-                if (total > 0) {
-                    const hardPercentage = (hardSkills / total) * 100;
-                    const softPercentage = (softSkills / total) * 100;
-
-                    const ratioBar = row.querySelector('.ratio-bar');
-                    ratioBar.innerHTML = `
-                        <div class="hard-skills-fill" style="width: ${hardPercentage.toFixed(1)}%"></div>
-                        <div class="soft-skills-fill" style="width: ${softPercentage.toFixed(1)}%"></div>
-                    `;
-
-                    const ratioText = row.querySelector('.ratio-text');
-                    ratioText.innerHTML = `
-                        <span class="hard-percent">${hardPercentage.toFixed(1)}%</span>
-                        <span class="soft-percent">${softPercentage.toFixed(1)}%</span>
-                    `;
-                }
-            });
+            populateLeaderboard();
+            updateCurrentUser();
         });
     </script>
 </body>
-
 </html>

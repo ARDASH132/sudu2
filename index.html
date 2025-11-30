@@ -436,68 +436,75 @@
             <button class="login-button">Войти</button>
 
             <div class="links">
-                <a href="#" class="forgot-password">Забыли пароль?</a>
-                <a href="#" class="registration">Регистрация</a>
+                <a href="forgot-password-telegram.html" class="forgot-password">Забыли пароль?</a>
+                <a href="register.html" class="registration">Регистрация</a>
             </div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const loginForm = document.querySelector('.login-form');
-            const loginButton = document.querySelector('.login-button');
-            const errorMessage = document.getElementById('error-message');
+       
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginButton = document.querySelector('.login-button');
+        const errorMessage = document.getElementById('error-message');
 
-            const validUsers = [
-                { username: 'shemetovGD', password: '1111' },
-            ];
+                 loginButton.addEventListener('click', async function (e) {
+    e.preventDefault();
 
-            loginButton.addEventListener('click', function (e) {
-                e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
 
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
+    if (!username || !password) {
+        showError('Пожалуйста, заполните все поля');
+        return;
+    }
 
-                if (!username || !password) {
-                    showError('Пожалуйста, заполните все поля');
-                    return;
-                }
-
-                // Проверка учетных данных
-                const isValidUser = validUsers.some(user =>
-                    user.username === username && user.password === password
-                );
-
-                if (isValidUser) {
-                    // Успешный вход
-                    hideError();
-                    window.location.href = 'main.html';
-                } else {
-                    showError('Неверный логин или пароль');
-                }
-            });
-
-            function showError(message) {
-                errorMessage.textContent = message;
-                errorMessage.style.display = 'block';
-
-            }
-
-            function hideError() {
-                errorMessage.style.display = 'none';
-            }
-
-            // Добавляем обработчик нажатия Enter
-            document.getElementById('password').addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    loginButton.click();
-                }
-            });
-
-
-
-            document.head.appendChild(style);
+    try {
+        const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: username,
+                password: password
+            })
         });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            localStorage.setItem('currentUser', JSON.stringify(data.user));
+            
+            hideError();
+            alert('Вход выполнен успешно!');
+            window.location.href = 'main.html';
+        } else {
+            showError(data.error || 'Ошибка входа');
+        }
+    } catch (error) {
+        console.error('Ошибка:', error);
+        showError('Ошибка соединения с сервером');
+    }
+});
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+
+        // Добавляем обработчик нажатия Enter
+        document.getElementById('password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                loginButton.click();
+            }
+        });
+    });
+
     </script>
 </body>
 
