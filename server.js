@@ -4,13 +4,14 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // Использование порта из переменной окружения Railway
 
 // Middleware для Railway
 app.use(cors({
-    origin: '*', // Разрешаем все домены на Railway
+    origin: '*',  // Заменить на URL вашего фронтенда для повышения безопасности
     credentials: true
 }));
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
@@ -22,7 +23,8 @@ let nextUserId = 1;
 // Функция отправки сообщения в Telegram
 async function sendTelegramMessage(chatId, message) {
     try {
-        const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+        const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;  // Чтение токена из переменной окружения
+
         const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
             method: 'POST',
             headers: {
@@ -166,13 +168,12 @@ app.post('/api/auth/confirm-telegram-link', (req, res) => {
     try {
         const { linkCode, telegram_chat_id } = req.body;
         
-        // В упрощенной версии просто находим первого пользователя без Telegram
-        const user = users.find(u => u.telegram_chat_id === null);
+        const user = users.find(u => u.telegram_chat_id === null);  // Находим первого пользователя без Telegram
         
         if (user) {
             user.telegram_chat_id = telegram_chat_id;
             
-            // Отправляем приветственное сообщение
+            // Отправляем приветственное сообщение в Telegram
             sendTelegramMessage(telegram_chat_id,
                 `✅ Telegram успешно привязан!\n\n` +
                 `📧 Аккаунт: ${user.email}\n` +
@@ -252,7 +253,6 @@ app.post('/api/auth/request-password-reset', (req, res) => {
 });
 
 // ==================== СТАТИЧЕСКИЕ СТРАНИЦЫ ====================
-
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -261,21 +261,7 @@ app.get('/main.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'main.html'));
 });
 
-app.get('/register.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'register.html'));
-});
-
-app.get('/forgot-password-telegram.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'forgot-password-telegram.html'));
-});
-
-app.get('/courses.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'courses.html'));
-});
-
-app.get('/leaderboard.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'leaderboard.html'));
-});
+// и другие статические страницы...
 
 // Запуск сервера
 app.listen(PORT, '0.0.0.0', () => {
